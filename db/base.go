@@ -24,6 +24,11 @@ func RowToStruct(model interface{}, column_names []string, column_values []inter
       v, err := strconv.Atoi(string(column_values[i].([]byte)))
       if err != nil { panic(err) }
       f.Set(reflect.ValueOf(v))
+    case "uint":
+      u64, err := strconv.ParseUint(string(column_values[i].([]byte)), 10, 32)
+      if err != nil { panic(err) }
+      v := uint(u64)
+      f.Set(reflect.ValueOf(v))
     case "time.Time":
       f.Set(reflect.ValueOf(column_values[i].(time.Time)))
     default:
